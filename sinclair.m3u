@@ -1,0 +1,9 @@
+#EXTM3U x-tvg-url="sinclair.xml.gz"
+#EXTINF:-1 tvg-id="CometTV.us" tvg-name="Comet TV" tvg-logo="" group-title="EN - Entertainment",Comet TV
+https://fast-channels.sinclairstoryline.com/COMET/index.m3u8
+#EXTINF:-1 tvg-id="Charge.us" tvg-name="Charge!" tvg-logo="" group-title="EN - Entertainment",Charge!
+https://storage.googleapis.com/interactive-media-ads/media/bbb.m3u8
+#EXTINF:-1 tvg-id="Roar.us" tvg-name="Roar" tvg-logo="" group-title="EN - Entertainment",Roar
+https://fast-channels.sinclairstoryline.com/TBD/index.m3u8
+#EXTINF:-1 tvg-id="TheNest.us" tvg-name="The Nest" tvg-logo="" group-title="EN - Entertainment",The Nest
+https://fast-channels.sinclairstoryline.com/THENEST/index.m3u8
