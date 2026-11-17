@@ -1,0 +1,52 @@
+name: Update Sinclair playlist
+
+on:
+  schedule:
+    - cron: "0 */4 * * *"   # every 4 hours (UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-sinclair
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Set up latest stable Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"   # always the newest stable release
+          check-latest: true
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests
+
+      - name: Install Playwright browser (fallback scraper)
+        continue-on-error: true
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+
+      - name: Run scraper
+        run: python sinclair_scraper.py
+
+      - name: Commit changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sinclair.m3u sinclair.xml.gz
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "Update Sinclair playlist/EPG $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
